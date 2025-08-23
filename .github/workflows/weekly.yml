@@ -4,26 +4,68 @@ on:
   schedule:
     # 09:00 IST = 03:30 UTC every Monday
     - cron: "30 3 * * 1"
-  workflow_dispatch: {}  # lets you trigger it manually too
+  workflow_dispatch:
+    inputs:
+      since_hours:
+        description: "Only include posts from the last N hours (e.g., 168 = 7 days). Use 0 to disable."
+        required: false
+        default: "168"
+      seed_per_source:
+        description: "On this run, include latest N per source (useful for a one-time refresh). 0 = off."
+        required: false
+        default: "0"
+      max_items_per_source:
+        description: "Fetch cap per source to keep the email reasonable."
+        required: false
+        default: "20"
+      dry_run:
+        description: "Print output to logs only (no email)."
+        required: false
+        default: "false"
+      debug_email:
+        description: "Log SendGrid status/message-id for debugging."
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-competitor-watcher
+  cancel-in-progress: false
 
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -V
+          pip install -r requirements.txt
+
       - name: Run weekly digest
         env:
+          # Secrets (set in: Settings → Secrets and variables → Actions)
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          DRY_RUN: "false"
+
+          # App config (defaults for scheduled runs; workflow_dispatch can override)
           TZ: "Asia/Kolkata"
-          SINCE_HOURS: "0"            # disable recency filter for this test
-          SEED_LATEST_PER_SOURCE: "3" # include top 3 per source if DB is empty
-          MAX_ITEMS_PER_SOURCE: "10"  # cap volume
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          SINCE_HOURS: ${{ inputs.since_hours || '168' }}
+          SEED_LATEST_PER_SOURCE: ${{ inputs.seed_per_source || '0' }}
+          MAX_ITEMS_PER_SOURCE: ${{ inputs.max_items_per_source || '20' }}
+          DEBUG_EMAIL: ${{ inputs.debug_email || 'false' }}
         run: python run_daily.py
