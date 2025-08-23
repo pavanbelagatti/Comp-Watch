@@ -20,15 +20,10 @@ jobs:
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          # Optional (only if you enabled summaries)
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # Make sure we actually send
           DRY_RUN: "false"
-          # Ensure timestamps are IST inside the email
           TZ: "Asia/Kolkata"
-          # Weekly window (7 days) so you only see last week’s items
-          SINCE_HOURS: "168"
-          # Tweak volume if you want
-          MAX_ITEMS_PER_SOURCE: "20"
-          SEED_LATEST_PER_SOURCE: "0"
+          SINCE_HOURS: "0"            # disable recency filter for this test
+          SEED_LATEST_PER_SOURCE: "3" # include top 3 per source if DB is empty
+          MAX_ITEMS_PER_SOURCE: "10"  # cap volume
         run: python run_daily.py
