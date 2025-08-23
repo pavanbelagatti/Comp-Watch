@@ -1,0 +1,92 @@
+sources:
+  # --- Existing (keep) ---
+  - name: ClickHouse Blog
+    kind: rss
+    category: blog
+    url: https://clickhouse.com/rss.xml
+
+  - name: ScyllaDB Blog
+    kind: rss
+    category: blog
+    url: https://www.scylladb.com/feed/
+
+  - name: Yugabyte Blog
+    kind: rss
+    category: blog
+    url: https://www.yugabyte.com/blog/feed/
+
+  - name: PingCAP (TiDB) Blog
+    kind: rss
+    category: blog
+    url: https://www.pingcap.com/blog/feed/
+
+  # --- New competitors you asked for ---
+  - name: Databricks Blog
+    kind: html
+    category: blog
+    url: https://www.databricks.com/blog
+    selectors:
+      item: "article a[href*='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: MongoDB Blog
+    kind: html
+    category: blog
+    url: https://www.mongodb.com/blog
+    selectors:
+      item: "article a[href^='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: Pinecone Learn
+    kind: html
+    category: blog
+    url: https://www.pinecone.io/learn/
+    selectors:
+      item: "main a[href^='/learn/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: Redis Blog
+    kind: html
+    category: blog
+    url: https://redis.io/blog/
+    selectors:
+      item: "article a[href^='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: CockroachDB Blog
+    kind: html
+    category: blog
+    url: https://www.cockroachlabs.com/blog/
+    selectors:
+      item: "main a[href*='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: DataStax Blog
+    kind: html
+    category: blog
+    url: https://www.datastax.com/blog
+    selectors:
+      item: "a[href^='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  - name: MariaDB Blog
+    kind: html
+    category: blog
+    url: https://mariadb.com/resources/blog/
+    selectors:
+      item: "a[href*='/resources/blog/']"
+      title: "a"
+      link_attr: href
+      date: null

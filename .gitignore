@@ -1,0 +1,8 @@
+cat > .gitignore <<'EOF'
+.env
+.env.*
+*.env
+.venv/
+watcher.db
+__pycache__/
+EOF
