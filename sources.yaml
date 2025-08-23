@@ -1,5 +1,5 @@
 sources:
-  # --- Existing (keep) ---
+  # --- Core OLAP / HTAP / DistSQL you already had ---
   - name: ClickHouse Blog
     kind: rss
     category: blog
@@ -21,26 +21,30 @@ sources:
     url: https://www.pingcap.com/blog/feed/
 
   # --- New competitors you asked for ---
+
+  # Databricks — HTML scrape (stable links on listing)
   - name: Databricks Blog
     kind: html
     category: blog
     url: https://www.databricks.com/blog
-    selectors:
-      item: "article a[href*='/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
-
-  - name: MongoDB Blog
-    kind: html
-    category: blog
-    url: https://www.mongodb.com/blog
     selectors:
       item: "article a[href^='/blog/']"
       title: "a"
       link_attr: href
       date: null
 
+  # MongoDB — company blog hub
+  - name: MongoDB Blog
+    kind: html
+    category: blog
+    url: https://www.mongodb.com/company/blog
+    selectors:
+      item: "article a[href^='/company/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # Pinecone — Learn hub (their content lives here)
   - name: Pinecone Learn
     kind: html
     category: blog
@@ -51,6 +55,7 @@ sources:
       link_attr: href
       date: null
 
+  # Redis — blog listing
   - name: Redis Blog
     kind: html
     category: blog
@@ -61,32 +66,30 @@ sources:
       link_attr: href
       date: null
 
+  # Cockroach Labs — first-party RSS (most robust)
   - name: CockroachDB Blog
-    kind: html
+    kind: rss
     category: blog
-    url: https://www.cockroachlabs.com/blog/
-    selectors:
-      item: "main a[href*='/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
+    url: https://www.cockroachlabs.com/blog/index.xml
 
+  # DataStax — blog listing
   - name: DataStax Blog
     kind: html
     category: blog
     url: https://www.datastax.com/blog
     selectors:
-      item: "a[href^='/blog/']"
+      item: "article a[href^='/blog/']"
       title: "a"
       link_attr: href
       date: null
 
+  # MariaDB — resources blog listing
   - name: MariaDB Blog
     kind: html
     category: blog
     url: https://mariadb.com/resources/blog/
     selectors:
-      item: "a[href*='/resources/blog/']"
+      item: "article a[href^='/resources/blog/']"
       title: "a"
       link_attr: href
       date: null
