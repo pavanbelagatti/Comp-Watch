@@ -1,5 +1,5 @@
 sources:
-  # --- Core OLAP / HTAP / DistSQL you already had ---
+  # --- Official RSS feeds (confirmed) ---
   - name: ClickHouse Blog
     kind: rss
     category: blog
@@ -20,76 +20,101 @@ sources:
     category: blog
     url: https://www.pingcap.com/blog/feed/
 
-  # --- New competitors you asked for ---
-
-  # Databricks — HTML scrape (stable links on listing)
-  - name: Databricks Blog
-    kind: html
-    category: blog
-    url: https://www.databricks.com/blog
-    selectors:
-      item: "article a[href^='/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
-
-  # MongoDB — company blog hub
-  - name: MongoDB Blog
-    kind: html
-    category: blog
-    url: https://www.mongodb.com/company/blog
-    selectors:
-      item: "article a[href^='/company/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
-
-  # Pinecone — Learn hub (their content lives here)
-  - name: Pinecone Learn
-    kind: html
-    category: blog
-    url: https://www.pinecone.io/learn/
-    selectors:
-      item: "main a[href^='/learn/']"
-      title: "a"
-      link_attr: href
-      date: null
-
-  # Redis — blog listing
-  - name: Redis Blog
-    kind: html
-    category: blog
-    url: https://redis.io/blog/
-    selectors:
-      item: "article a[href^='/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
-
-  # Cockroach Labs — first-party RSS (most robust)
   - name: CockroachDB Blog
     kind: rss
     category: blog
     url: https://www.cockroachlabs.com/blog/index.xml
 
-  # DataStax — blog listing
-  - name: DataStax Blog
-    kind: html
-    category: blog
-    url: https://www.datastax.com/blog
-    selectors:
-      item: "article a[href^='/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
+  # Databricks: official docs/release notes feed (useful signal of product changes)
+  - name: Databricks Release Notes
+    kind: rss
+    category: release-notes
+    url: https://docs.databricks.com/aws/en/feed.xml
 
-  # MariaDB — resources blog listing
-  - name: MariaDB Blog
-    kind: html
+  # MariaDB Foundation blog (official)
+  - name: MariaDB Foundation Blog
+    kind: rss
     category: blog
-    url: https://mariadb.com/resources/blog/
-    selectors:
-      item: "article a[href^='/resources/blog/']"
-      title: "a"
-      link_attr: href
-      date: null
+    url: https://mariadb.org/blog/feed/
+
+  # --- Optional/alternative RSS where "blog" feed is not public ---
+
+  # MongoDB: No public blog RSS. If you want official RSS sources anyway, uncomment one:
+  # - name: MongoDB Investor News Releases
+  #   kind: rss
+  #   category: newsroom
+  #   url: https://investors.mongodb.com/rss/press-releases.xml
+  # - name: MongoDB Security Bulletins
+  #   kind: rss
+  #   category: security
+  #   url: https://www.mongodb.com/resources/products/mongodb-security-bulletins/rss.xml
+
+  # Redis: Blog feed URL isn’t publicly documented. If this 404s, revert to the HTML block below.
+  # - name: Redis Blog (tentative RSS)
+  #   kind: rss
+  #   category: blog
+  #   url: https://redis.io/blog/index.xml
+
+  # DataStax: If their RSS endpoint isn’t reachable, keep the HTML scraper below instead.
+  # - name: DataStax Blog (tentative RSS)
+  #   kind: rss
+  #   category: blog
+  #   url: https://www.datastax.com/blog/feed/
+
+  # MariaDB (Company) product/resources blog: if this 404s, keep HTML version below.
+  # - name: MariaDB (Company) Blog
+  #   kind: rss
+  #   category: blog
+  #   url: https://mariadb.com/resources/blog/feed/
+
+  # --- HTML fallbacks (keep only if RSS not available/working) ---
+
+  # - name: MongoDB Blog
+  #   kind: html
+  #   category: blog
+  #   url: https://www.mongodb.com/blog
+  #   selectors:
+  #     item: "article a[href^='/blog/']"
+  #     title: "a"
+  #     link_attr: href
+  #     date: null
+
+  # - name: Pinecone Learn
+  #   kind: html
+  #   category: blog
+  #   url: https://www.pinecone.io/blog/
+  #   selectors:
+  #     item: "main a[href^='/blog/'], main a[href^='/learn/']"
+  #     title: "a"
+  #     link_attr: href
+  #     date: null
+
+  # - name: Redis Blog
+  #   kind: html
+  #   category: blog
+  #   url: https://redis.io/blog/
+  #   selectors:
+  #     item: "main a[href^='/blog/']"
+  #     title: "a"
+  #     link_attr: href
+  #     date: null
+
+  # - name: DataStax Blog
+  #   kind: html
+  #   category: blog
+  #   url: https://www.datastax.com/blog
+  #   selectors:
+  #     item: "a[href^='/blog/']"
+  #     title: "a"
+  #     link_attr: href
+  #     date: null
+
+  # - name: MariaDB (Company) Blog
+  #   kind: html
+  #   category: blog
+  #   url: https://mariadb.com/resources/blog/
+  #   selectors:
+  #     item: "a[href*='/resources/blog/']"
+  #     title: "a"
+  #     link_attr: href
+  #     date: null
