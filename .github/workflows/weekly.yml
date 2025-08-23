@@ -1,0 +1,34 @@
+name: Weekly Competitor Watcher (Mon 9:00 IST)
+
+on:
+  schedule:
+    # 09:00 IST = 03:30 UTC every Monday
+    - cron: "30 3 * * 1"
+  workflow_dispatch: {}  # lets you trigger it manually too
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Run weekly digest
+        env:
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          # Optional (only if you enabled summaries)
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # Make sure we actually send
+          DRY_RUN: "false"
+          # Ensure timestamps are IST inside the email
+          TZ: "Asia/Kolkata"
+          # Weekly window (7 days) so you only see last week’s items
+          SINCE_HOURS: "168"
+          # Tweak volume if you want
+          MAX_ITEMS_PER_SOURCE: "20"
+          SEED_LATEST_PER_SOURCE: "0"
+        run: python run_daily.py
