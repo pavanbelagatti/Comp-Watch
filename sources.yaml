@@ -1,5 +1,5 @@
 sources:
-  # --- Official RSS feeds (confirmed) ---
+  # --- Core competitors (RSS only) ---
   - name: ClickHouse Blog
     kind: rss
     category: blog
@@ -25,96 +25,76 @@ sources:
     category: blog
     url: https://www.cockroachlabs.com/blog/index.xml
 
-  # Databricks: official docs/release notes feed (useful signal of product changes)
+  - name: DataStax Blog
+    kind: rss
+    category: blog
+    url: https://www.datastax.com/blog/rss.xml
+
+  - name: MariaDB (Resources Blog)
+    kind: rss
+    category: blog
+    url: https://mariadb.com/resources/blog/feed/
+
+  # Redis: official blog is on redis.io; if this ever fails, swap to HTML scraping
+  - name: Redis Blog
+    kind: rss
+    category: blog
+    url: https://redis.com/blog/feed/
+
+  # Databricks: use official release-notes feed (their blog has no public RSS)
   - name: Databricks Release Notes
     kind: rss
     category: release-notes
-    url: https://docs.databricks.com/aws/en/feed.xml
+    url: https://docs.databricks.com/en/release-notes/index.xml
 
-  # MariaDB Foundation blog (official)
-  - name: MariaDB Foundation Blog
+  # --- MongoDB newsroom + security ---
+  - name: MongoDB Security Bulletins
+    kind: rss
+    category: security
+    url: https://www.mongodb.com/alerts/rss
+
+  - name: MongoDB Press Releases
+    kind: rss
+    category: press
+    url: https://investors.mongodb.com/rss/press-releases.xml
+
+  # --- Broader DB news you asked for ---
+  - name: DB-Engines Ranking
+    kind: rss
+    category: news-aggregate
+    url: https://db-engines.com/en/rss/ranking.xml
+
+  - name: InfoQ – Database
+    kind: rss
+    category: news
+    url: https://feed.infoq.com/database
+
+  - name: PostgreSQL News (official)
+    kind: rss
+    category: news
+    url: https://www.postgresql.org/news.rss
+
+  - name: Planet PostgreSQL (community aggregator)
+    kind: rss
+    category: news-aggregate
+    url: https://planet.postgresql.org/rss20.xml
+
+  - name: MySQL Official Blog
     kind: rss
     category: blog
-    url: https://mariadb.org/blog/feed/
+    url: https://blogs.oracle.com/mysql/rss
 
-  # --- Optional/alternative RSS where "blog" feed is not public ---
+  - name: Google Cloud – BigQuery Release Notes
+    kind: rss
+    category: release-notes
+    url: https://cloud.google.com/feeds/bigquery-release-notes.xml
 
-  # MongoDB: No public blog RSS. If you want official RSS sources anyway, uncomment one:
-  # - name: MongoDB Investor News Releases
-  #   kind: rss
-  #   category: newsroom
-  #   url: https://investors.mongodb.com/rss/press-releases.xml
-  # - name: MongoDB Security Bulletins
-  #   kind: rss
-  #   category: security
-  #   url: https://www.mongodb.com/resources/products/mongodb-security-bulletins/rss.xml
+  - name: Google Cloud – Cloud Spanner Release Notes
+    kind: rss
+    category: release-notes
+    url: https://cloud.google.com/feeds/cloud-spanner-release-notes.xml
 
-  # Redis: Blog feed URL isn’t publicly documented. If this 404s, revert to the HTML block below.
-  # - name: Redis Blog (tentative RSS)
-  #   kind: rss
-  #   category: blog
-  #   url: https://redis.io/blog/index.xml
-
-  # DataStax: If their RSS endpoint isn’t reachable, keep the HTML scraper below instead.
-  # - name: DataStax Blog (tentative RSS)
-  #   kind: rss
-  #   category: blog
-  #   url: https://www.datastax.com/blog/feed/
-
-  # MariaDB (Company) product/resources blog: if this 404s, keep HTML version below.
-  # - name: MariaDB (Company) Blog
-  #   kind: rss
-  #   category: blog
-  #   url: https://mariadb.com/resources/blog/feed/
-
-  # --- HTML fallbacks (keep only if RSS not available/working) ---
-
-  # - name: MongoDB Blog
-  #   kind: html
-  #   category: blog
-  #   url: https://www.mongodb.com/blog
-  #   selectors:
-  #     item: "article a[href^='/blog/']"
-  #     title: "a"
-  #     link_attr: href
-  #     date: null
-
-  # - name: Pinecone Learn
-  #   kind: html
-  #   category: blog
-  #   url: https://www.pinecone.io/blog/
-  #   selectors:
-  #     item: "main a[href^='/blog/'], main a[href^='/learn/']"
-  #     title: "a"
-  #     link_attr: href
-  #     date: null
-
-  # - name: Redis Blog
-  #   kind: html
-  #   category: blog
-  #   url: https://redis.io/blog/
-  #   selectors:
-  #     item: "main a[href^='/blog/']"
-  #     title: "a"
-  #     link_attr: href
-  #     date: null
-
-  # - name: DataStax Blog
-  #   kind: html
-  #   category: blog
-  #   url: https://www.datastax.com/blog
-  #   selectors:
-  #     item: "a[href^='/blog/']"
-  #     title: "a"
-  #     link_attr: href
-  #     date: null
-
-  # - name: MariaDB (Company) Blog
-  #   kind: html
-  #   category: blog
-  #   url: https://mariadb.com/resources/blog/
-  #   selectors:
-  #     item: "a[href*='/resources/blog/']"
-  #     title: "a"
-  #     link_attr: href
-  #     date: null
+  - name: AWS Database Blog
+    kind: rss
+    category: news
+    url: https://aws.amazon.com/blogs/database/feed/
