@@ -1,4 +1,5 @@
 sources:
+  # --- Blogs (unchanged) ---
   - name: ClickHouse Blog
     kind: rss
     category: blog
@@ -39,13 +40,12 @@ sources:
     category: blog
     url: https://redis.com/blog/feed/
 
-  # Databricks: use official release notes feed
   - name: Databricks Release Notes
     kind: rss
     category: release
     url: https://docs.databricks.com/en/release-notes/index.xml
 
-  # MongoDB official feeds (map to "news")
+  # --- MongoDB official (news-like) ---
   - name: MongoDB Security Bulletins
     kind: rss
     category: news
@@ -56,7 +56,7 @@ sources:
     category: news
     url: https://investors.mongodb.com/rss/press-releases.xml
 
-  # Broad database news (map all to "news")
+  # --- Broader DB news ---
   - name: DB-Engines Ranking
     kind: rss
     category: news
@@ -91,3 +91,113 @@ sources:
     kind: rss
     category: release
     url: https://cloud.google.com/feeds/cloud-spanner-release-notes.xml
+
+  # =========================
+  #        EVENTS & WEBINARS
+  # =========================
+
+  # ClickHouse — Events (HTML)
+  - name: ClickHouse Events
+    kind: html
+    category: event
+    url: https://clickhouse.com/events
+    selectors:
+      item: "main a[href*='/events/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # ScyllaDB — Events (likely WP; RSS exists)
+  - name: ScyllaDB Events
+    kind: rss
+    category: event
+    url: https://www.scylladb.com/events/feed/
+
+  # Yugabyte — Events (try RSS; fall back to HTML if needed)
+  - name: Yugabyte Events
+    kind: rss
+    category: event
+    url: https://www.yugabyte.com/events/feed/
+
+  # PingCAP — Community Events (HTML)
+  - name: PingCAP Events
+    kind: html
+    category: event
+    url: https://www.pingcap.com/community/events/
+    selectors:
+      item: "a[href*='/community/'][href*='event']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # Databricks — Events (HTML)
+  - name: Databricks Events
+    kind: html
+    category: event
+    url: https://www.databricks.com/events
+    selectors:
+      item: "a[href^='/events/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # MongoDB — Events (HTML)
+  - name: MongoDB Events
+    kind: html
+    category: event
+    url: https://www.mongodb.com/events
+    selectors:
+      item: "a[href^='/events/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # Pinecone — Events/Webinars (HTML)
+  - name: Pinecone Events
+    kind: html
+    category: webinar
+    url: https://www.pinecone.io/events/
+    selectors:
+      item: "main a[href^='/events/'], main a[href^='/webinars/'], main a[href^='/learn/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # Redis — Events (HTML)
+  - name: Redis Events
+    kind: html
+    category: event
+    url: https://redis.com/company/events/
+    selectors:
+      item: "a[href^='/company/events/'], a[href^='/company/webinars/'], a[href^='/blog/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # CockroachDB — Events (HTML)
+  - name: CockroachDB Events
+    kind: html
+    category: event
+    url: https://www.cockroachlabs.com/events/
+    selectors:
+      item: "a[href^='/events/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # DataStax — Events (HTML)
+  - name: DataStax Events
+    kind: html
+    category: event
+    url: https://www.datastax.com/events
+    selectors:
+      item: "a[href^='/events/'], a[href^='/webinars/']"
+      title: "a"
+      link_attr: href
+      date: null
+
+  # MariaDB — Events (WordPress; RSS)
+  - name: MariaDB Events
+    kind: rss
+    category: event
+    url: https://mariadb.com/events/feed/
