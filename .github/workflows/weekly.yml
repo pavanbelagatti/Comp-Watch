@@ -2,28 +2,35 @@ name: Weekly Competitor Watcher (Mon 9:00 IST)
 
 on:
   schedule:
-    # 09:00 IST = 03:30 UTC every Monday
-    - cron: "30 3 * * 1"
+    - cron: "30 3 * * 1"   # 09:00 IST
   workflow_dispatch:
     inputs:
       since_hours:
-        description: "Only include posts from the last N hours (e.g., 168 = 7 days). Use 0 to disable."
+        description: "Only include posts from last N hours (168 = week). 0 disables."
         required: false
         default: "168"
       seed_per_source:
-        description: "On this run, include latest N per source (useful for a one-time refresh). 0 = off."
+        description: "Include latest N per source (first run/refresh). 0 = off."
+        required: false
+        default: "0"
+      force_seed_per_source:
+        description: "ALWAYS include latest N per source (ignores dedupe). 0 = off."
         required: false
         default: "0"
       max_items_per_source:
-        description: "Fetch cap per source to keep the email reasonable."
+        description: "Fetch cap per source."
         required: false
         default: "20"
       dry_run:
-        description: "Print output to logs only (no email)."
+        description: "Print to logs only (no email)."
+        required: false
+        default: "false"
+      reset_db:
+        description: "Drop DB at start (makes everything new)."
         required: false
         default: "false"
       debug_email:
-        description: "Log SendGrid status/message-id for debugging."
+        description: "Log SendGrid status/message-id."
         required: false
         default: "false"
 
@@ -37,35 +44,32 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
-
-      - name: Install dependencies
-        run: |
+      - run: |
           python -V
           pip install -r requirements.txt
 
       - name: Run weekly digest
         env:
-          # Secrets (set in: Settings → Secrets and variables → Actions)
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-          # App config (defaults for scheduled runs; workflow_dispatch can override)
           TZ: "Asia/Kolkata"
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
           SINCE_HOURS: ${{ inputs.since_hours || '168' }}
           SEED_LATEST_PER_SOURCE: ${{ inputs.seed_per_source || '0' }}
+          FORCE_SEED_PER_SOURCE: ${{ inputs.force_seed_per_source || '0' }}
           MAX_ITEMS_PER_SOURCE: ${{ inputs.max_items_per_source || '20' }}
           DEBUG_EMAIL: ${{ inputs.debug_email || 'false' }}
+
+          # Fresh DB each run in CI
+          DB_PATH: ${{ runner.temp }}/watcher.db
+          RESET_DB_ON_RUN: ${{ inputs.reset_db || 'false' }}
         run: python run_daily.py
