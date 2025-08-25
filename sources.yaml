@@ -39,26 +39,27 @@ sources:
     category: blog
     url: https://redis.com/blog/feed/
 
+  # Databricks: use official release notes feed
   - name: Databricks Release Notes
     kind: rss
-    category: release-notes
+    category: release
     url: https://docs.databricks.com/en/release-notes/index.xml
 
-  # MongoDB official feeds (not blog, but useful updates)
+  # MongoDB official feeds (map to "news")
   - name: MongoDB Security Bulletins
     kind: rss
-    category: security
+    category: news
     url: https://www.mongodb.com/alerts/rss
 
   - name: MongoDB Press Releases
     kind: rss
-    category: press
+    category: news
     url: https://investors.mongodb.com/rss/press-releases.xml
 
-  # Broad database news
+  # Broad database news (map all to "news")
   - name: DB-Engines Ranking
     kind: rss
-    category: news-aggregate
+    category: news
     url: https://db-engines.com/en/rss/ranking.xml
 
   - name: InfoQ – Database
@@ -73,7 +74,7 @@ sources:
 
   - name: Planet PostgreSQL
     kind: rss
-    category: news-aggregate
+    category: news
     url: https://planet.postgresql.org/rss20.xml
 
   - name: MySQL Official Blog
@@ -83,10 +84,10 @@ sources:
 
   - name: BigQuery Release Notes
     kind: rss
-    category: release-notes
+    category: release
     url: https://cloud.google.com/feeds/bigquery-release-notes.xml
 
   - name: Cloud Spanner Release Notes
     kind: rss
-    category: release-notes
+    category: release
     url: https://cloud.google.com/feeds/cloud-spanner-release-notes.xml
