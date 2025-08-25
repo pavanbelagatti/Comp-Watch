@@ -1,5 +1,4 @@
 sources:
-  # --- Core competitors (RSS only) ---
   - name: ClickHouse Blog
     kind: rss
     category: blog
@@ -35,19 +34,17 @@ sources:
     category: blog
     url: https://mariadb.com/resources/blog/feed/
 
-  # Redis: official blog is on redis.io; if this ever fails, swap to HTML scraping
   - name: Redis Blog
     kind: rss
     category: blog
     url: https://redis.com/blog/feed/
 
-  # Databricks: use official release-notes feed (their blog has no public RSS)
   - name: Databricks Release Notes
     kind: rss
     category: release-notes
     url: https://docs.databricks.com/en/release-notes/index.xml
 
-  # --- MongoDB newsroom + security ---
+  # MongoDB official feeds (not blog, but useful updates)
   - name: MongoDB Security Bulletins
     kind: rss
     category: security
@@ -58,7 +55,7 @@ sources:
     category: press
     url: https://investors.mongodb.com/rss/press-releases.xml
 
-  # --- Broader DB news you asked for ---
+  # Broad database news
   - name: DB-Engines Ranking
     kind: rss
     category: news-aggregate
@@ -74,7 +71,7 @@ sources:
     category: news
     url: https://www.postgresql.org/news.rss
 
-  - name: Planet PostgreSQL (community aggregator)
+  - name: Planet PostgreSQL
     kind: rss
     category: news-aggregate
     url: https://planet.postgresql.org/rss20.xml
@@ -84,17 +81,12 @@ sources:
     category: blog
     url: https://blogs.oracle.com/mysql/rss
 
-  - name: Google Cloud – BigQuery Release Notes
+  - name: BigQuery Release Notes
     kind: rss
     category: release-notes
     url: https://cloud.google.com/feeds/bigquery-release-notes.xml
 
-  - name: Google Cloud – Cloud Spanner Release Notes
+  - name: Cloud Spanner Release Notes
     kind: rss
     category: release-notes
     url: https://cloud.google.com/feeds/cloud-spanner-release-notes.xml
-
-  - name: AWS Database Blog
-    kind: rss
-    category: news
-    url: https://aws.amazon.com/blogs/database/feed/
